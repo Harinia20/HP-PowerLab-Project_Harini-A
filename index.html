@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Refinery Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+
+        .chart {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI-Powered Refinery Dashboard</h1>
+    <div class="dashboard">
+        <div class="card">
+            <h2>Predictive Maintenance Alerts</h2>
+            <canvas id="maintenanceChart" class="chart"></canvas>
+        </div>
+        <div class="card">
+            <h2>Energy Efficiency Dashboard</h2>
+            <canvas id="energyChart" class="chart"></canvas>
+        </div>
+        <div class="card">
+            <h2>Logistics Optimization</h2>
+            <canvas id="logisticsChart" class="chart"></canvas>
+        </div>
+        <div class="card">
+            <h2>Carbon Footprint Reduction</h2>
+            <canvas id="carbonChart" class="chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        window.onload = function() {
+            // Predictive Maintenance Alerts Chart
+            const maintenanceCtx = document.getElementById('maintenanceChart').getContext('2d');
+            const maintenanceChart = new Chart(maintenanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Maintenance Alerts',
+                        data: [10, 15, 8, 12, 18, 9],
+                        borderColor: '#ff6384',
+                        fill: false,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // Energy Efficiency Dashboard Chart
+            const energyCtx = document.getElementById('energyChart').getContext('2d');
+            const energyChart = new Chart(energyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Boilers', 'Pumps', 'Heaters', 'Compressors'],
+                    datasets: [{
+                        label: 'Energy Consumption (MW)',
+                        data: [50, 40, 70, 30],
+                        backgroundColor: '#36a2eb'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // Logistics Optimization Chart
+            const logisticsCtx = document.getElementById('logisticsChart').getContext('2d');
+            const logisticsChart = new Chart(logisticsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Optimal', 'Delayed', 'In-Transit'],
+                    datasets: [{
+                        label: 'Logistics Efficiency',
+                        data: [60, 25, 15],
+                        backgroundColor: ['#4bc0c0', '#ffcd56', '#ff6384']
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            // Carbon Footprint Reduction Chart
+            const carbonCtx = document.getElementById('carbonChart').getContext('2d');
+            const carbonChart = new Chart(carbonCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Carbon Emissions (Tonnes)',
+                        data: [200, 180, 160, 140, 120, 110],
+                        borderColor: '#4caf50',
+                        fill: false,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // Update data every 3 seconds
+            setInterval(() => {
+                // Update Predictive Maintenance Alerts Chart
+                maintenanceChart.data.datasets[0].data = Array.from({ length: 6 }, () => getRandomInt(5, 20));
+                maintenanceChart.update();
+
+                // Update Energy Efficiency Dashboard Chart
+                energyChart.data.datasets[0].data = Array.from({ length: 4 }, () => getRandomInt(30, 80));
+                energyChart.update();
+
+                // Update Logistics Optimization Chart
+                logisticsChart.data.datasets[0].data = [
+                    getRandomInt(50, 70), 
+                    getRandomInt(10, 30), 
+                    getRandomInt(10, 20)
+                ];
+                logisticsChart.update();
+
+                // Update Carbon Footprint Reduction Chart
+                carbonChart.data.datasets[0].data = Array.from({ length: 6 }, () => getRandomInt(100, 250));
+                carbonChart.update();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
